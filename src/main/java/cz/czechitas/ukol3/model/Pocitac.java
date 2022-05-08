@@ -13,17 +13,31 @@ public class Pocitac {
     }
 
     public void vytvorSouborOVelikosti(long velikost) {
-        long vyuziteMisto = pevnyDisk.getVyuziteMisto();
-        long vyuziteMistoVysledek = vyuziteMisto + velikost;
-        if (vyuziteMistoVysledek > pevnyDisk.getKapacitaDisk()) {
-            System.err.println("Nelze vytvořit nový soubor, není dostatečná kapacita disku");
+        if (jeZapnuty == true) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto();
+            long vyuziteMistoVysledek = vyuziteMisto + velikost;
+            if (vyuziteMistoVysledek > pevnyDisk.getKapacitaDisk()) {
+                System.err.println("Nelze vytvořit nový soubor, není dostatečná kapacita disku");
+            } else {
+                pevnyDisk.setVyuziteMisto(vyuziteMistoVysledek);
+            }
         } else {
-            pevnyDisk.setVyuziteMisto(vyuziteMistoVysledek);
+            System.err.println("Počítač je vypnutý, prosím zapněte jej.");
         }
     }
 
     public void vymazSouboryOVelikosti(long velikost) {
-
+        if (jeZapnuty == true) {
+            long vyuziteMisto = pevnyDisk.getVyuziteMisto();
+            long vyuziteMistoZbytek = vyuziteMisto - velikost;
+            if (vyuziteMistoZbytek < 0) {
+                System.err.println("Nelze snížit využité místo, jelikož nemůže klesnout pod 0.");
+            } else {
+                pevnyDisk.setVyuziteMisto(vyuziteMistoZbytek);
+            }
+        } else {
+            System.err.println("Počítač je vypnutý, prosím zapněte jej.");
+        }
     }
 
     public Procesor getCpu() {

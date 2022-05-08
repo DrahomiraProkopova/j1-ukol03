@@ -34,10 +34,10 @@ public class HlavniProgram {
         draziPocitac.setPevnyDisk(draziDisk);
         draziPocitac.setRam(draziPamet);
 
-
         draziPocitac.zapniSe();
+        draziPocitac.vypniSe();
         draziPocitac.vytvorSouborOVelikosti(980L);
-        draziPocitac.vytvorSouborOVelikosti(900_800L);
+        draziPocitac.vymazSouboryOVelikosti(1_900L);
 
         System.out.println(draziPocitac.toString());
     }
