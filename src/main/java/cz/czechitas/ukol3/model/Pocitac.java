@@ -5,11 +5,21 @@ public class Pocitac {
     private Procesor cpu;
     private Pamet ram;
     private Disk pevnyDisk;
+    private Disk druhyDisk;
 
-    public Pocitac(Procesor cpu, Pamet ram, Disk pevnyDisk) {
+    public Pocitac(Procesor cpu, Pamet ram, Disk pevnyDisk, Disk druhyDisk) {
         this.cpu = cpu;
         this.ram = ram;
         this.pevnyDisk = pevnyDisk;
+        this.druhyDisk = druhyDisk;
+    }
+
+    public Disk getDruhyDisk() {
+        return druhyDisk;
+    }
+
+    public void setDruhyDisk(Disk druhyDisk) {
+        this.druhyDisk = druhyDisk;
     }
 
     public void vytvorSouborOVelikosti(long velikost) {
@@ -17,7 +27,13 @@ public class Pocitac {
             long vyuziteMisto = pevnyDisk.getVyuziteMisto();
             long vyuziteMistoVysledek = vyuziteMisto + velikost;
             if (vyuziteMistoVysledek > pevnyDisk.getKapacitaDisk()) {
-                System.err.println("Nelze vytvořit nový soubor, není dostatečná kapacita disku");
+                long vyuziteMistoDruhyDisk = druhyDisk.getVyuziteMisto();
+                long vyuziteMistoVysledekDruhyDisk = vyuziteMistoDruhyDisk + velikost;
+                if (vyuziteMistoVysledekDruhyDisk > druhyDisk.getKapacitaDisk()) {
+                    System.err.println("Nelze vytvořit nový soubor, není dostatečná kapacita disku");
+                } else {
+                    druhyDisk.setVyuziteMisto(vyuziteMistoVysledekDruhyDisk);
+                }
             } else {
                 pevnyDisk.setVyuziteMisto(vyuziteMistoVysledek);
             }
@@ -31,7 +47,13 @@ public class Pocitac {
             long vyuziteMisto = pevnyDisk.getVyuziteMisto();
             long vyuziteMistoZbytek = vyuziteMisto - velikost;
             if (vyuziteMistoZbytek < 0) {
-                System.err.println("Nelze snížit využité místo, jelikož nemůže klesnout pod 0.");
+                long vyuziteMistoDruhyDisk = druhyDisk.getVyuziteMisto();
+                long vyuziteMistoDruhyDiskZbytek = vyuziteMistoDruhyDisk - velikost;
+                if (vyuziteMistoDruhyDiskZbytek < 0) {
+                    System.err.println("Nelze snížit využité místo, jelikož nemůže klesnout pod 0.");
+                } else {
+                    druhyDisk.setVyuziteMisto(vyuziteMistoDruhyDiskZbytek);
+                }
             } else {
                 pevnyDisk.setVyuziteMisto(vyuziteMistoZbytek);
             }
@@ -39,6 +61,7 @@ public class Pocitac {
             System.err.println("Počítač je vypnutý, prosím zapněte jej.");
         }
     }
+
 
     public Procesor getCpu() {
         return cpu;
@@ -94,6 +117,7 @@ public class Pocitac {
                 "je zapnutý, " + jeZapnuty + ". " +
                 "Procesor je " + cpu +
                 " Ram je" + ram +
-                " Pevný disk " + pevnyDisk;
+                " Pevný disk " + pevnyDisk+
+                " Pevný druhý disk " + druhyDisk;
     }
 }

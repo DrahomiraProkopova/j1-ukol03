@@ -14,31 +14,22 @@ public class HlavniProgram {
         //TODO tady bude váš kód - vytvoření instance třídy Pocitac, zapnutí, vpynutí, výpis hodnot.
         System.out.println("Program spuštěn.");
 
-        Procesor mujProcesor = new Procesor();
-        Pamet mojePamet = new Pamet();
-        Disk mujDisk = new Disk();
-
-        Pocitac draziPocitac = new Pocitac(mujProcesor, mojePamet, mujDisk);
-
         Procesor draziProcesor = new Procesor();
+        Pamet draziPamet = new Pamet();
+        Disk draziDisk = new Disk();
+        Disk druhyDisk = new Disk();
+
+        Pocitac draziPocitac = new Pocitac(draziProcesor, draziPamet, draziDisk, druhyDisk);
+
         draziProcesor.setRychlost(430_330L);
         draziProcesor.setVyrobce("Intel");
-
-        Pamet draziPamet = new Pamet();
         draziPamet.setKapacitaPamet(500_100L);
-
-        Disk draziDisk = new Disk();
         draziDisk.setKapacitaDisk(800_900L);
-
-        draziPocitac.setCpu(draziProcesor);
-        draziPocitac.setPevnyDisk(draziDisk);
-        draziPocitac.setRam(draziPamet);
+        druhyDisk.setKapacitaDisk(1_000_100L);
 
         draziPocitac.zapniSe();
-        draziPocitac.vypniSe();
-        draziPocitac.vytvorSouborOVelikosti(980L);
-        draziPocitac.vymazSouboryOVelikosti(1_900L);
-
+        draziPocitac.vytvorSouborOVelikosti(1_000_000L);
+        draziPocitac.vymazSouboryOVelikosti(1_000_000L);
         System.out.println(draziPocitac.toString());
     }
 
